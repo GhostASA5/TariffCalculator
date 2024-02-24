@@ -3,6 +3,7 @@ package ru.fastdelivery.domain.common.weight;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import ru.fastdelivery.domain.common.packproperties.weight.Weight;
 
 import java.math.BigInteger;
 

@@ -1,6 +1,6 @@
 package ru.fastdelivery.presentation.api.response;
 
-import ru.fastdelivery.domain.common.price.Price;
+import ru.fastdelivery.domain.common.packproperties.price.Price;
 
 import java.math.BigDecimal;
 

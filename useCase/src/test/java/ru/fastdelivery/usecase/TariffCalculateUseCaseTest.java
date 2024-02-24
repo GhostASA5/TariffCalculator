@@ -5,8 +5,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import ru.fastdelivery.domain.common.currency.Currency;
 import ru.fastdelivery.domain.common.currency.CurrencyFactory;
-import ru.fastdelivery.domain.common.price.Price;
-import ru.fastdelivery.domain.common.weight.Weight;
+import ru.fastdelivery.domain.common.packproperties.price.Price;
+import ru.fastdelivery.domain.common.packproperties.weight.Weight;
 import ru.fastdelivery.domain.delivery.pack.Pack;
 import ru.fastdelivery.domain.delivery.shipment.Shipment;
 
@@ -21,9 +21,10 @@ import static org.mockito.Mockito.when;
 class TariffCalculateUseCaseTest {
 
     final WeightPriceProvider weightPriceProvider = mock(WeightPriceProvider.class);
+    final VolumePriceProvider volumePriceProvider = mock(VolumePriceProvider.class);
     final Currency currency = new CurrencyFactory(code -> true).create("RUB");
 
-    final TariffCalculateUseCase tariffCalculateUseCase = new TariffCalculateUseCase(weightPriceProvider);
+    final TariffCalculateUseCase tariffCalculateUseCase = new TariffCalculateUseCase(weightPriceProvider, volumePriceProvider);
 
     @Test
     @DisplayName("Расчет стоимости доставки -> успешно")

@@ -1,4 +1,4 @@
-package ru.fastdelivery.domain.common.weight;
+package ru.fastdelivery.domain.common.packproperties.weight;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;

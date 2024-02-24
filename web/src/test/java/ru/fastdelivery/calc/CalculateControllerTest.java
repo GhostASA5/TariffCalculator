@@ -7,7 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import ru.fastdelivery.ControllerTest;
 import ru.fastdelivery.domain.common.currency.CurrencyFactory;
-import ru.fastdelivery.domain.common.price.Price;
+import ru.fastdelivery.domain.common.packproperties.price.Price;
 import ru.fastdelivery.presentation.api.request.CalculatePackagesRequest;
 import ru.fastdelivery.presentation.api.request.CargoPackage;
 import ru.fastdelivery.presentation.api.response.CalculatePackagesResponse;

@@ -3,6 +3,7 @@ package ru.fastdelivery.domain.common.price;
 import org.junit.jupiter.api.Test;
 import ru.fastdelivery.domain.common.currency.Currency;
 import ru.fastdelivery.domain.common.currency.CurrencyFactory;
+import ru.fastdelivery.domain.common.packproperties.price.Price;
 
 import java.math.BigDecimal;
 

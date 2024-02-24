@@ -1,4 +1,4 @@
-package ru.fastdelivery.domain.common.price;
+package ru.fastdelivery.domain.common.packproperties.price;
 
 import ru.fastdelivery.domain.common.currency.Currency;
 

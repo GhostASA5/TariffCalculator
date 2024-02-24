@@ -27,7 +27,7 @@ class PricesRublesPropertiesTest {
         properties.setCurrencyFactory(currencyFactory);
 
         properties.setPerKg(PER_KG);
-        properties.setMinimal(MINIMAL);
+        properties.setMinimalForWeight(MINIMAL);
 
         var currency = mock(Currency.class);
         when(currency.getCode()).thenReturn(RUB);
