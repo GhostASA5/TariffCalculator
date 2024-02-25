@@ -46,7 +46,7 @@ class PricesRublesPropertiesTest {
 
     @Test
     void whenCallMinimalPrice_thenRequestFromConfig() {
-        var actual = properties.minimalPrice();
+        var actual = properties.minimalPriceForWeight();
 
         verify(currencyFactory).create("RUB");
         assertThat(actual.amount()).isEqualByComparingTo(MINIMAL);

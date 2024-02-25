@@ -1,6 +1,5 @@
 package ru.fastdelivery.usecase;
 
-import jdk.jshell.Snippet;
 import lombok.RequiredArgsConstructor;
 import ru.fastdelivery.domain.common.packproperties.price.Price;
 import ru.fastdelivery.domain.delivery.shipment.Shipment;
@@ -15,7 +14,7 @@ public class TariffCalculateUseCase {
 
     public Price calc(Shipment shipment) {
         var weightAllPackagesKg = shipment.weightAllPackages().kilograms();
-        var minimalPriceForWeight = weightPriceProvider.minimalPrice();
+        var minimalPriceForWeight = weightPriceProvider.minimalPriceForWeight();
         var volumeAllPackages = shipment.volumeAllPackages();
         var minimalPriceForVolume = volumePriceProvider.minimalPriceForVolume();
 
@@ -40,6 +39,10 @@ public class TariffCalculateUseCase {
 
 
     public Price minimalPrice() {
-        return weightPriceProvider.minimalPrice();
+        if (volumePriceProvider.minimalPriceForVolume().amount().compareTo(weightPriceProvider.minimalPriceForWeight().amount()) > 0){
+            return volumePriceProvider.minimalPriceForVolume();
+        } else {
+            return weightPriceProvider.minimalPriceForWeight();
+        }
     }
 }

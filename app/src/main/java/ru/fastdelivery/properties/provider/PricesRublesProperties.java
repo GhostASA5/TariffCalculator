@@ -31,7 +31,7 @@ public class PricesRublesProperties implements WeightPriceProvider, VolumePriceP
     }
 
     @Override
-    public Price minimalPrice() {
+    public Price minimalPriceForWeight() {
         return new Price(minimalForWeight, currencyFactory.create("RUB"));
     }
 

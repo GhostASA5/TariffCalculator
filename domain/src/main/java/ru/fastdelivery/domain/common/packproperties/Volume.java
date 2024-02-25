@@ -14,12 +14,10 @@ public class Volume {
     private BigDecimal packVolume;
 
     public Volume(Length length, Width width, Height height){
-        BigDecimal a = new BigDecimal(length.lengthMillimeters());
-        BigDecimal b = new BigDecimal(width.widthMillimeters());
-        BigDecimal c = new BigDecimal(height.heightMillimeters());
-        BigDecimal d = a.multiply(b).multiply(c);
-        BigDecimal e = d.divide(new BigDecimal("1000000000"), 4, RoundingMode.HALF_UP);
-        this.packVolume = e;
+        this.packVolume = new BigDecimal(length.lengthMillimeters())
+                .multiply(new BigDecimal(width.widthMillimeters()))
+                .multiply(new BigDecimal(height.heightMillimeters()))
+                .divide(new BigDecimal("1000000000"), 4, RoundingMode.HALF_UP);
     }
 
     public Volume(BigDecimal packVolume){

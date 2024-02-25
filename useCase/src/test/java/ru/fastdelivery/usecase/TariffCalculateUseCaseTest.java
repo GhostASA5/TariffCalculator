@@ -5,8 +5,11 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import ru.fastdelivery.domain.common.currency.Currency;
 import ru.fastdelivery.domain.common.currency.CurrencyFactory;
+import ru.fastdelivery.domain.common.packproperties.height.Height;
+import ru.fastdelivery.domain.common.packproperties.length.Length;
 import ru.fastdelivery.domain.common.packproperties.price.Price;
 import ru.fastdelivery.domain.common.packproperties.weight.Weight;
+import ru.fastdelivery.domain.common.packproperties.width.Width;
 import ru.fastdelivery.domain.delivery.pack.Pack;
 import ru.fastdelivery.domain.delivery.shipment.Shipment;
 
@@ -29,15 +32,22 @@ class TariffCalculateUseCaseTest {
     @Test
     @DisplayName("Расчет стоимости доставки -> успешно")
     void whenCalculatePrice_thenSuccess() {
-        var minimalPrice = new Price(BigDecimal.TEN, currency);
+        var minimalPricePerKg = new Price(BigDecimal.TEN, currency);
         var pricePerKg = new Price(BigDecimal.valueOf(100), currency);
+        var minimalPricePerM3 = new Price(BigDecimal.TEN, currency);
+        var pricePerM3 = new Price(BigDecimal.valueOf(100), currency);
 
-        when(weightPriceProvider.minimalPrice()).thenReturn(minimalPrice);
+        when(weightPriceProvider.minimalPriceForWeight()).thenReturn(minimalPricePerKg);
         when(weightPriceProvider.costPerKg()).thenReturn(pricePerKg);
+        when(volumePriceProvider.minimalPriceForVolume()).thenReturn(minimalPricePerM3);
+        when(volumePriceProvider.costPerM3()).thenReturn(pricePerM3);
 
-        var shipment = new Shipment(List.of(new Pack(new Weight(BigInteger.valueOf(1200)))),
+        var shipment = new Shipment(List.of(new Pack(new Weight(BigInteger.valueOf(1200)),
+                new Length(BigInteger.valueOf(1200)),
+                new Width(BigInteger.valueOf(1200)),
+                new Height(BigInteger.valueOf(1200)))),
                 new CurrencyFactory(code -> true).create("RUB"));
-        var expectedPrice = new Price(BigDecimal.valueOf(120), currency);
+        var expectedPrice = new Price(BigDecimal.valueOf(172.8000), currency);
 
         var actualPrice = tariffCalculateUseCase.calc(shipment);
 
@@ -49,12 +59,15 @@ class TariffCalculateUseCaseTest {
     @Test
     @DisplayName("Получение минимальной стоимости -> успешно")
     void whenMinimalPrice_thenSuccess() {
-        BigDecimal minimalValue = BigDecimal.TEN;
-        var minimalPrice = new Price(minimalValue, currency);
-        when(weightPriceProvider.minimalPrice()).thenReturn(minimalPrice);
+        BigDecimal minimalValuePerKg = BigDecimal.TEN;
+        var minimalPricePerKg = new Price(minimalValuePerKg, currency);
+        BigDecimal minimalValuePerM3 = BigDecimal.ONE;
+        var minimalPricePerM3 = new Price(minimalValuePerM3, currency);
+        when(weightPriceProvider.minimalPriceForWeight()).thenReturn(minimalPricePerKg);
+        when(volumePriceProvider.minimalPriceForVolume()).thenReturn(minimalPricePerM3);
 
         var actual = tariffCalculateUseCase.minimalPrice();
 
-        assertThat(actual).isEqualTo(minimalPrice);
+        assertThat(actual).isEqualTo(minimalPricePerKg);
     }
 }
