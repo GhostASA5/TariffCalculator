@@ -23,14 +23,8 @@ public record Pack(Weight weight, Length length, Width width, Height height) {
         if (weight.greaterThan(maxWeight)) {
             throw new IllegalArgumentException("Package can't be more than " + maxWeight.weightGrams() + " g.");
         }
-        if (height.greaterThan(maxHeight)) {
+        if (height.greaterThan(maxHeight) || length.greaterThan(maxLength) || width.greaterThan(maxWidth)) {
             throw new IllegalArgumentException("Package can't be more than " + maxHeight.heightMillimeters() + " mm.");
-        }
-        if (length.greaterThan(maxLength)) {
-            throw new IllegalArgumentException("Package can't be more than " + maxLength.lengthMillimeters() + " mm.");
-        }
-        if (width.greaterThan(maxWidth)) {
-            throw new IllegalArgumentException("Package can't be more than " + maxWidth.widthMillimeters() + " mm.");
         }
     }
 }

@@ -8,13 +8,13 @@ public record CargoPackage(
         @Schema(description = "Вес упаковки, граммы", example = "5667.45")
         BigInteger weight,
 
-        @Schema(description = "Вес упаковки, граммы", example = "5667.45")
+        @Schema(description = "Длина упаковки, миллиметры", example = "1200")
         BigInteger length,
 
-        @Schema(description = "Вес упаковки, граммы", example = "5667.45")
+        @Schema(description = "Ширина упаковки, миллиметры", example = "660.8")
         BigInteger width,
 
-        @Schema(description = "Вес упаковки, граммы", example = "5667.45")
+        @Schema(description = "Высота упаковки, миллиметры", example = "945.15")
         BigInteger height
 ) {
 }

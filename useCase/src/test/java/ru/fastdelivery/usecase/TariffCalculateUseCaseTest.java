@@ -10,6 +10,7 @@ import ru.fastdelivery.domain.common.packproperties.length.Length;
 import ru.fastdelivery.domain.common.packproperties.price.Price;
 import ru.fastdelivery.domain.common.packproperties.weight.Weight;
 import ru.fastdelivery.domain.common.packproperties.width.Width;
+import ru.fastdelivery.domain.delivery.coordinates.Coordinates;
 import ru.fastdelivery.domain.delivery.pack.Pack;
 import ru.fastdelivery.domain.delivery.shipment.Shipment;
 
@@ -25,9 +26,10 @@ class TariffCalculateUseCaseTest {
 
     final WeightPriceProvider weightPriceProvider = mock(WeightPriceProvider.class);
     final VolumePriceProvider volumePriceProvider = mock(VolumePriceProvider.class);
+    final CoordinatesProvider coordinatesProvider = mock(CoordinatesProvider.class);
     final Currency currency = new CurrencyFactory(code -> true).create("RUB");
 
-    final TariffCalculateUseCase tariffCalculateUseCase = new TariffCalculateUseCase(weightPriceProvider, volumePriceProvider);
+    final TariffCalculateUseCase tariffCalculateUseCase = new TariffCalculateUseCase(weightPriceProvider, volumePriceProvider, coordinatesProvider);
 
     @Test
     @DisplayName("Расчет стоимости доставки -> успешно")
@@ -36,6 +38,8 @@ class TariffCalculateUseCaseTest {
         var pricePerKg = new Price(BigDecimal.valueOf(100), currency);
         var minimalPricePerM3 = new Price(BigDecimal.TEN, currency);
         var pricePerM3 = new Price(BigDecimal.valueOf(100), currency);
+
+        var coordinates = new Coordinates(BigDecimal.valueOf(50), BigDecimal.valueOf(55), BigDecimal.valueOf(60), BigDecimal.valueOf(65));
 
         when(weightPriceProvider.minimalPriceForWeight()).thenReturn(minimalPricePerKg);
         when(weightPriceProvider.costPerKg()).thenReturn(pricePerKg);
@@ -47,9 +51,9 @@ class TariffCalculateUseCaseTest {
                 new Width(BigInteger.valueOf(1200)),
                 new Height(BigInteger.valueOf(1200)))),
                 new CurrencyFactory(code -> true).create("RUB"));
-        var expectedPrice = new Price(BigDecimal.valueOf(172.8000), currency);
+        var expectedPrice = new Price(BigDecimal.valueOf(490.75), currency);
 
-        var actualPrice = tariffCalculateUseCase.calc(shipment);
+        var actualPrice = tariffCalculateUseCase.calc(shipment, coordinates);
 
         assertThat(actualPrice).usingRecursiveComparison()
                 .withComparatorForType(BigDecimalComparator.BIG_DECIMAL_COMPARATOR, BigDecimal.class)

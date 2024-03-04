@@ -3,6 +3,7 @@ package ru.fastdelivery.domain.common.packproperties.price;
 import ru.fastdelivery.domain.common.currency.Currency;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 /**
  * @param amount   значение цены
@@ -30,5 +31,9 @@ public record Price(
             throw new IllegalArgumentException("Cannot compare Prices in difference Currency!");
         }
         return new Price(this.amount.max(price.amount), this.currency);
+    }
+
+    public Price setScale(int scale){
+        return new Price(this.amount.setScale(scale, RoundingMode.HALF_UP), this.currency);
     }
 }

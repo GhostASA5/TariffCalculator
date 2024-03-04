@@ -3,7 +3,13 @@ currency:
     - "RUB"
 cost:
   rub:
-    perKg: 400
-    minimalForWeight: 350
-    perM3: 10000
-    minimalForVolume: 700
+    perKg: 100
+    minimalForWeight: 10
+    perM3: 100
+    minimalForVolume: 10
+
+coordinates:
+  latitudeMin: 45
+  latitudeMax: 65
+  longitudeMin: 30
+  longitudeMax: 96
